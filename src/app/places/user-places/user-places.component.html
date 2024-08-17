@@ -1,0 +1,17 @@
+@if(!errorD()){
+<app-places-container title="Favourite Places">
+  @if(isFetching()&& !errorSignal()){
+  <p class="fallback-text">Fetching favourite places...</p>
+  } @else if( errorSignal() ){
+  <p class="fallback-text">{{ errorSignal() }}</p>
+  } @else if (places()) {
+  <app-places [places]="places()!" (selectPlace)="onRemove($event)" />
+  } @else if (places().length === 0) {
+  <p class="fallback-text">Unfortunately, no places could be found.</p>
+  }
+</app-places-container>
+}@else {
+<app-places-container title="Favourite Places">
+  <p class="fallback-text">error</p>
+</app-places-container>
+}
